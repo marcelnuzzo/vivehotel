@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, user-scalable=no">
+        <title>{% block title %}ViveHotel!{% endblock %}</title>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+        <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+        <link rel="stylesheet" href="https://bootswatch.com/4/litera/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet"  href="{{ asset('css/main.css') }}"> 
+        {% block stylesheets %}
+        <link rel="stylesheet"  href="{{ asset('css/main.css') }}"> 
+        <link rel="stylesheet"  href="{{ asset('css/bootstrap.min.css') }}"> 
+        <link rel="stylesheet"  href="{{ asset('css/bootstrap-theme.css') }}"> 
+        <link rel="stylesheet"  href="{{ asset('css/font-awesome.min.css') }}"> 
+        {% endblock %}
+    </head>
+    <body>
+        {% include 'partials/header.html.twig' %}
+
+        {% block body %}{% endblock %}
+        <hr>
+        {% include 'partials/footer.html.twig' %}
+        
+        {% block javascripts %}{% endblock %}
+    </body>
+</html>

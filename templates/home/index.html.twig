@@ -1,0 +1,102 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Bienvenue{% endblock %}
+
+{% block body %}
+<style>
+#slider {
+    width: 720px;
+    height: 400px;
+    overflow: hidden;
+}
+#slider .slides {
+    list-style: none;
+    width: 4320px;
+    height: 400px;
+    margin: 0;
+    padding: 0;
+}
+#slider .image {
+    float: left;
+    width: 720px;
+    height: 400px;
+}
+</style>
+
+<div class="container">
+    <div class="row">
+        <div class="col-6">
+            
+        </div>
+        <div class="col-6">
+            <button class="d-block mx-auto btn btn-danger mb-5" id="stopStartBtn">Stop/Start</button>
+            <div id="slider">
+                <ul class="slides">
+                    <li class="image" rel="Image 01">
+                        <img src="images/hotel1.jpg" alt="" heigth="350">
+                    </li>
+                    <li class="image" rel="Image 02">
+                        <img src="images/hotel2.jpg" alt="" heigth="350">
+                    </li>
+                    <li class="image" rel="Image 02">
+                        <img src="images/hotel3.jpg" alt="" heigth="350"> 
+                    </li>
+                    <li class="image" rel="Image 02">
+                        <img src="images/hotel4.jpg" alt="" heigth="350">
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+//configuration
+var width = 720,
+    animationSpeed = 2000,
+    pause = 3000,
+    currentImage = 1,
+    interval,
+    started=true;
+
+//cache DOM
+var $slider = $('#slider'),
+    $slideContainer = $slider.find('.slides'),
+    $image = $slideContainer.find('.image');
+
+//setInterval
+function startSlider() {
+    interval = setInterval(function () {
+        $slideContainer.animate({
+            'margin-left': '-=' + width
+        }, animationSpeed, function () {
+            currentImage++;
+            //if it's last slide go to position 1 (0px)
+            if (currentImage === $image.length) {
+                currentImage = 1;
+                $slideContainer.css('margin-left', 0);
+            }
+        });
+    }, pause); //setInterval
+} //startSlider
+
+function stopSlider() {
+    clearInterval(interval);
+} //stopSlider
+
+//hover stop/start
+$slider.on('mouseenter', stopSlider).on('mouseleave', startSlider);
+
+$('#stopStartBtn').click(function(){
+    if(started){
+        stopSlider();
+        started=false;
+    }
+    else{
+        startSlider();
+        started=true;
+    }
+});
+startSlider();
+</script>
+{% endblock %}
