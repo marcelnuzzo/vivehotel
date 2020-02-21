@@ -2,13 +2,19 @@
 
 namespace App\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
+ * @Orm\HasLifecycleCallbacks()
+ * @UniqueEntity(
+ *  fields={"email"},
+ *  message="Un autre utilisateur s'est déjà inscrit avec cette adresse email, merci de la modifier"
+ * )
  */
 class User implements UserInterface
 {
@@ -39,6 +45,18 @@ class User implements UserInterface
      * @ORM\ManyToMany(targetEntity="App\Entity\Role", mappedBy="users")
      */
     private $userRoles;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     * 
+     */
+    private $lastName;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     * 
+     */
+    private $firstName;
 
     public function __construct()
     {
@@ -150,4 +168,29 @@ class User implements UserInterface
 
         return $this;
     }
+
+    public function getLastName(): ?string
+    {
+        return $this->lastName;
+    }
+
+    public function setLastName(string $lastName): self
+    {
+        $this->lastName = $lastName;
+
+        return $this;
+    }
+
+    public function getFirstName(): ?string
+    {
+        return $this->firstName;
+    }
+
+    public function setFirstName(string $firstName): self
+    {
+        $this->firstName = $firstName;
+
+        return $this;
+    }
+
 }
