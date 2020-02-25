@@ -34,5 +34,24 @@
             </a>
         </li>
         </ul>
+        <ul class="nav navbar-nav navbar-right">
+            {% if not app.user %}
+            <li class="nav-item">
+                <a class="nav-link" href="{{ path('app_register') }} ">Inscription</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ path("app_login") }}">Login</a>
+            </li>
+            {% else %}
+            <li class="nav-item">
+                <a class="nav-link" href="#">Logout</a>
+            </li>
+            {% endif %}
+            {% if is_granted('ROLE_SUPER_ADMIN') %}
+            <li class="nav-item">
+                <a class="nav-link" href="{{ path('admin_index') }} ">Index admin</a>
+            </li>
+            {% endif %}
+        </ul>
     </div>
 </nav>
